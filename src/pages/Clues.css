@@ -1,0 +1,19 @@
+.clues-page {
+  padding: 32px 0;
+  text-align: center;
+}
+.clues-page ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px auto;
+  max-width: 400px;
+}
+.clues-page li {
+  background: #e0c3fc;
+  margin: 10px 0;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #5b21b6;
+  font-weight: 500;
+  box-shadow: 0 2px 8px #a78bfa22;
+}
