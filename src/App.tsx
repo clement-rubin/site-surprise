@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Wheel from './pages/Wheel.tsx';
-import Clues from './pages/Clues';
+import Clues from './pages/Clues.tsx';
 
 export default function App() {
   return (
@@ -17,4 +17,5 @@ export default function App() {
         <Route path="/clues" element={<Clues />} />
       </Routes>
     </div>
-  );
+  );
+}
