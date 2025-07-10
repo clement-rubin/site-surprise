@@ -11,6 +11,13 @@ const CLUES = [
   "Peut-être un peu d'eau, mais pas la mer...",
   "Un cocon loin du quotidien...",
   "Un souvenir à créer, unique et doux...",
+  "Il aura un refuge animalier, un cocon de douceur...",
+  "Un lieu où l'on peut se perdre dans la nature...",
+  "Un espace pour rêver et se détendre...",
+  "Un endroit secret, juste pour nous...",
+  "Un lieu où les étoiles brillent plus fort...",
+  "Un havre de paix pour deux amoureux...",
+  "Un lieu magique, loin de l'agitation...",
 ];
 
 function getNextSpinTime() {
@@ -114,7 +121,7 @@ export default function Wheel() {
 
   return (
     <div className="wheel-page">
-      <h2>Tourne la roue !</h2>
+      <h2>Tourne la roue bolosse !</h2>
       <div className={`wheel ${spinning ? 'spinning' : ''} ${!canSpin || allFound ? 'disabled' : ''}`} onClick={spinWheel}>
         <span role="img" aria-label="wheel" style={{ fontSize: '4rem', transition: 'transform 0.2s' }}>🎡</span>
       </div>

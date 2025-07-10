@@ -18,7 +18,7 @@ export default function Clues() {
 
   return (
     <div className="clues-page">
-      <h2>Mes indices découverts</h2>
+      <h2>Mes indices découverts tu pourras bientot rajouter ceux que t'as déjà</h2>
       <div className="clues-progress">
         {clues.length} / {CLUES_TOTAL} indices découverts
       </div>
