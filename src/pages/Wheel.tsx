@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import './Wheel.css';
 
 const CLUES = [
-  "C'est un endroit insolite...",
-  "Prépare-toi à te détendre...",
-  "Il y aura un jacuzzi...",
-  "On partira en voiture...",
-  "Ce sera une nuit magique...",
-  "Pense à prendre un maillot !",
-  "La nature sera au rendez-vous...",
-  "Un cocon rien que pour nous deux...",
+  "Un lieu où le temps semble suspendu...",
+  "Des bulles pourraient accompagner la soirée...",
+  "Un voyage sans prendre l'avion...",
+  "Un moment pour se ressourcer ensemble...",
+  "Un endroit où la nature veille sur nous...",
+  "Peut-être un peu d'eau, mais pas la mer...",
+  "Un cocon loin du quotidien...",
+  "Un souvenir à créer, unique et doux...",
 ];
 
 function getNextSpinTime() {
@@ -24,6 +24,8 @@ export default function Wheel() {
   const [countdown, setCountdown] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const [reveal, setReveal] = useState(false);
+  const [allFound, setAllFound] = useState(false);
 
   useEffect(() => {
     const lastSpin = localStorage.getItem('lastSpin');
@@ -35,8 +37,14 @@ export default function Wheel() {
         setCountdown(last - now);
       }
     }
+    // Vérifie si tous les indices sont trouvés
+    const discovered = JSON.parse(localStorage.getItem('clues') || '[]');
+    if (discovered.length >= CLUES.length) {
+      setAllFound(true);
+      setCanSpin(false);
+    }
     const timer = setInterval(() => {
-      if (!canSpin) {
+      if (!canSpin && !allFound) {
         const last = parseInt(localStorage.getItem('lastSpin') || '0', 10);
         const now = Date.now();
         if (now < last) {
@@ -48,14 +56,21 @@ export default function Wheel() {
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [canSpin]);
+  }, [canSpin, allFound]);
 
   function spinWheel() {
-    if (!canSpin) return;
+    if (!canSpin || allFound) return;
     setSpinning(true);
+    setResult(null);
+    setReveal(false);
     setTimeout(() => {
       const discovered = JSON.parse(localStorage.getItem('clues') || '[]');
       const undiscovered = CLUES.filter(c => !discovered.includes(c));
+      if (undiscovered.length === 0) {
+        setAllFound(true);
+        setSpinning(false);
+        return;
+      }
       const clue = undiscovered[Math.floor(Math.random() * undiscovered.length)];
       setResult(clue);
       localStorage.setItem('clues', JSON.stringify([...discovered, clue]));
@@ -64,6 +79,8 @@ export default function Wheel() {
       setCanSpin(false);
       setCountdown(next - Date.now());
       setSpinning(false);
+      setTimeout(() => setReveal(true), 200); // animation de révélation
+      if (undiscovered.length === 1) setAllFound(true);
     }, 2000);
   }
 
@@ -77,17 +94,22 @@ export default function Wheel() {
   return (
     <div className="wheel-page">
       <h2>Tourne la roue !</h2>
-      <div className={`wheel ${spinning ? 'spinning' : ''}`} onClick={spinWheel}>
-        <span role="img" aria-label="wheel">🎡</span>
+      <div className={`wheel ${spinning ? 'spinning' : ''} ${!canSpin || allFound ? 'disabled' : ''}`} onClick={spinWheel}>
+        <span role="img" aria-label="wheel" style={{ fontSize: '4rem', transition: 'transform 0.2s' }}>🎡</span>
       </div>
-      {!canSpin && (
+      {!canSpin && !allFound && (
         <div className="countdown">
           Prochain indice dans : {formatCountdown(countdown)}
         </div>
       )}
       {result && (
-        <div className="result">
+        <div className={`result ${reveal ? 'reveal' : ''}`}>
           <strong>Indice du jour :</strong> {result}
+        </div>
+      )}
+      {allFound && (
+        <div className="all-found">
+          <strong>Bravo !</strong> Tu as découvert tous les indices. 🎉
         </div>
       )}
       <p className="hint">Tu peux tourner la roue une fois par jour.</p>
