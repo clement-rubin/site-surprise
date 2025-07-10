@@ -2,33 +2,64 @@ body {
   margin: 0;
   font-family: 'Quicksand', 'Segoe UI', sans-serif;
   background: linear-gradient(120deg, #f8fafc 0%, #e0c3fc 100%);
-  color: #333;
   min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  animation: bgMove 20s linear infinite alternate;
+}
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 .app-container {
   max-width: 600px;
   margin: 32px auto;
   background: rgba(255,255,255,0.95);
   border-radius: 18px;
-  box-shadow: 0 6px 32px #c3b1e1a0;
+  box-shadow: 0 8px 40px #a78bfa55, 0 1.5px 0 #fff inset;
   padding: 24px;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 1.2s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 nav {
   display: flex;
   gap: 24px;
   justify-content: center;
   margin-bottom: 32px;
+  background: rgba(167,139,250,0.08);
+  border-radius: 12px;
+  padding: 8px 0;
+  box-shadow: 0 2px 8px #a78bfa22;
 }
 nav a {
   color: #7c3aed;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
+  padding: 6px 18px;
+  border-radius: 8px;
 }
-nav a:hover {
-  color: #a78bfa;
+nav a:hover, nav a.active {
+  color: #fff;
+  background: #a78bfa;
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 2px 8px #a78bfa44;
 }
 h1, h2 {
   font-family: 'Pacifico', cursive, sans-serif;
   color: #7c3aed;
+  text-shadow: 0 2px 8px #a78bfa33;
+  letter-spacing: 1.5px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f3e8ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #a78bfa55;
+  border-radius: 8px;
 }

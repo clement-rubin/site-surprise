@@ -5,10 +5,15 @@ const CLUES_TOTAL = 8;
 
 export default function Clues() {
   const [clues, setClues] = useState<string[]>([]);
+  const [highlighted, setHighlighted] = useState<number | null>(null);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('clues') || '[]');
     setClues(stored);
+    if (stored.length > 0) {
+      setHighlighted(stored.length - 1);
+      setTimeout(() => setHighlighted(null), 1200);
+    }
   }, []);
 
   return (
@@ -22,7 +27,7 @@ export default function Clues() {
       ) : (
         <ul className="clues-list">
           {clues.map((clue, i) => (
-            <li key={i}>
+            <li key={i} className={highlighted === i ? 'highlight' : ''}>
               <span className="clue-number">{i + 1}.</span> {clue}
             </li>
           ))}

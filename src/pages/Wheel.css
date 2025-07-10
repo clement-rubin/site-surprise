@@ -1,50 +1,139 @@
 .wheel-page {
   text-align: center;
   padding: 32px 0;
+  position: relative;
+  min-height: 70vh;
+  animation: fadeInUp 1.2s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 .wheel {
   margin: 32px auto;
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, #a78bfa 60%, #f8fafc 100%);
+  background: radial-gradient(circle at 60% 40%, #a78bfa 60%, #f8fafc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 4em;
   cursor: pointer;
-  box-shadow: 0 4px 16px #a78bfa55;
-  transition: box-shadow 0.2s;
+  box-shadow: 0 4px 32px #a78bfa77, 0 0 0 0 #a78bfa44;
+  transition: box-shadow 0.2s, filter 0.2s;
+  filter: drop-shadow(0 0 16px #a78bfa55);
+  position: relative;
+  z-index: 1;
+}
+.wheel:before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #a78bfa33 60%, transparent 100%);
+  z-index: 0;
+  animation: haloPulse 2.5s infinite alternate;
+  pointer-events: none;
+}
+@keyframes haloPulse {
+  0% { opacity: 0.5; transform: scale(1);}
+  100% { opacity: 1; transform: scale(1.08);}
 }
 .wheel.spinning {
   animation: spin 2s cubic-bezier(.36,.07,.19,.97) both;
+  filter: brightness(1.2) drop-shadow(0 0 32px #a78bfa99);
+  box-shadow: 0 8px 40px #a78bfa99;
 }
 @keyframes spin {
   0% { transform: rotate(0deg);}
   100% { transform: rotate(1440deg);}
 }
+.wheel.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.3) blur(0.5px);
+}
+.wheel span {
+  display: block;
+  animation: bounceIn 0.8s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.7);}
+  60% { transform: scale(1.15);}
+  100% { transform: scale(1);}
+}
 .countdown {
   margin: 18px 0;
   color: #7c3aed;
   font-weight: bold;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+  background: #f3e8ff;
+  border-radius: 8px;
+  padding: 8px 18px;
+  display: inline-block;
+  box-shadow: 0 2px 8px #a78bfa22;
+  animation: fadeIn 1s;
 }
 .result {
   margin: 24px 0;
   font-size: 1.2em;
   color: #333;
-  background: #f3e8ff;
+  background: linear-gradient(90deg, #f3e8ff 60%, #e0c3fc 100%);
+  border: 2px dashed #a78bfa;
   border-radius: 10px;
   padding: 12px;
   box-shadow: 0 2px 8px #a78bfa22;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.7s, transform 0.7s;
+  animation: popIn 0.7s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.7) translateY(40px);}
+  100% { opacity: 1; transform: scale(1) translateY(0);}
 }
 .result.reveal {
   opacity: 1;
   transform: translateY(0);
+  box-shadow: 0 4px 24px #a78bfa44;
+}
+.all-found {
+  margin: 32px 0 0 0;
+  font-size: 1.2em;
+  color: #7c3aed;
+  background: #e0c3fc;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 2px 12px #a78bfa33;
+  animation: fadeIn 1.2s;
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1;}
 }
 .hint {
   color: #a78bfa;
   font-size: 0.95em;
+  margin-top: 32px;
+  font-style: italic;
+  opacity: 0.8;
+  animation: fadeIn 2.2s 0.5s both;
+}
+.confetti {
+  position: fixed;
+  top: 0;
+  width: 12px;
+  height: 18px;
+  border-radius: 4px;
+  opacity: 0.85;
+  z-index: 9999;
+  pointer-events: none;
+  animation: confettiDrop 2s cubic-bezier(.36,.07,.19,.97) forwards;
+}
+@keyframes confettiDrop {
+  0% { transform: translateY(-40px) scale(1) rotate(0deg);}
+  80% { opacity: 1;}
+  100% { transform: translateY(90vh) scale(1.1) rotate(360deg); opacity: 0;}
 }

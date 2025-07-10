@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Wheel.css';
 
 const CLUES = [
@@ -17,6 +18,21 @@ function getNextSpinTime() {
   const tomorrow = new Date(now);
   tomorrow.setHours(24, 0, 0, 0);
   return tomorrow.getTime();
+}
+
+function launchConfetti() {
+  // Simple confetti burst (canvas-free, for demo)
+  const colors = ['#a78bfa', '#f3e8ff', '#7c3aed', '#e0c3fc', '#fff'];
+  for (let i = 0; i < 32; i++) {
+    const conf = document.createElement('div');
+    conf.className = 'confetti';
+    conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+    conf.style.left = `${Math.random() * 100}%`;
+    conf.style.animationDelay = `${Math.random()}s`;
+    conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 2200);
+  }
 }
 
 export default function Wheel() {
@@ -42,6 +58,7 @@ export default function Wheel() {
     if (discovered.length >= CLUES.length) {
       setAllFound(true);
       setCanSpin(false);
+      setTimeout(() => launchConfetti(), 400);
     }
     const timer = setInterval(() => {
       if (!canSpin && !allFound) {
@@ -69,6 +86,7 @@ export default function Wheel() {
       if (undiscovered.length === 0) {
         setAllFound(true);
         setSpinning(false);
+        setTimeout(() => launchConfetti(), 400);
         return;
       }
       const clue = undiscovered[Math.floor(Math.random() * undiscovered.length)];
@@ -80,7 +98,10 @@ export default function Wheel() {
       setCountdown(next - Date.now());
       setSpinning(false);
       setTimeout(() => setReveal(true), 200); // animation de révélation
-      if (undiscovered.length === 1) setAllFound(true);
+      if (undiscovered.length === 1) {
+        setAllFound(true);
+        setTimeout(() => launchConfetti(), 400);
+      }
     }, 2000);
   }
 
@@ -109,10 +130,14 @@ export default function Wheel() {
       )}
       {allFound && (
         <div className="all-found">
-          <strong>Bravo !</strong> Tu as découvert tous les indices. 🎉
+          <strong>Bravo !</strong> Tu as découvert tous les indices. 🎉<br />
+          <Link to="/clues" className="home-btn" style={{ marginTop: 18, display: 'inline-block' }}>
+            Voir mes indices
+          </Link>
         </div>
       )}
       <p className="hint">Tu peux tourner la roue une fois par jour.</p>
+      {/* Confetti CSS only, see Wheel.css */}
     </div>
   );
 }
