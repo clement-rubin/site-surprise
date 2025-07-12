@@ -2,6 +2,9 @@
   text-align: center;
   padding: 40px 0;
   animation: fadeInUp 1.2s cubic-bezier(.36,.07,.19,.97);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 8px 32px #a78bfa22;
 }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px);}
@@ -10,36 +13,40 @@
 .home p {
   font-size: 1.2em;
   margin: 16px 0;
+  color: #6d28d9;
+  font-weight: 500;
 }
 .home-actions {
   margin: 32px 0;
 }
 .home-btn {
   display: inline-block;
+  border-radius: 36px;
   background: linear-gradient(90deg, #a78bfa 60%, #f3e8ff 100%);
   color: #fff;
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: 16px 36px;
-  border-radius: 32px;
-  box-shadow: 0 4px 16px #a78bfa55;
-  text-decoration: none;
-  transition: background 0.3s, transform 0.18s, box-shadow 0.2s;
+  font-size: 1.18em;
+  font-weight: 700;
+  padding: 18px 44px;
+  box-shadow: 0 4px 24px #a78bfa33;
+  transition: background 0.25s, transform 0.18s, box-shadow 0.22s;
   border: none;
   outline: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  letter-spacing: 0.5px;
 }
 .home-btn:hover {
-  background: linear-gradient(90deg, #7c3aed 60%, #a78bfa 100%);
-  transform: scale(1.07) rotate(-1deg);
-  box-shadow: 0 8px 32px #a78bfa77;
+  background: linear-gradient(90deg, #b794f4 60%, #a78bfa 100%);
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 0 8px 32px #a78bfa55;
+  color: #fff;
 }
 .home-footer {
   margin-top: 40px;
   font-size: 1.1em;
   color: #a78bfa;
-  opacity: 0.85;
+  opacity: 0.92;
+  font-weight: 500;
   animation: fadeIn 2.2s 0.5s both;
 }

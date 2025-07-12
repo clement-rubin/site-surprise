@@ -88,8 +88,10 @@ export default function Wheel() {
     setResult(null);
     setReveal(false);
     setTimeout(() => {
+      // On récupère les indices stockés sous forme d'objets { clue, note }
       const discovered = JSON.parse(localStorage.getItem('clues') || '[]');
-      const undiscovered = CLUES.filter(c => !discovered.includes(c));
+      const discoveredClues = discovered.map((c: any) => c.clue);
+      const undiscovered = CLUES.filter(c => !discoveredClues.includes(c));
       if (undiscovered.length === 0) {
         setAllFound(true);
         setSpinning(false);
@@ -98,7 +100,8 @@ export default function Wheel() {
       }
       const clue = undiscovered[Math.floor(Math.random() * undiscovered.length)];
       setResult(clue);
-      localStorage.setItem('clues', JSON.stringify([...discovered, clue]));
+      // Ajoute l'indice avec une note vide
+      localStorage.setItem('clues', JSON.stringify([...discovered, { clue, note: "" }]));
       const next = getNextSpinTime();
       localStorage.setItem('lastSpin', next.toString());
       setCanSpin(false);

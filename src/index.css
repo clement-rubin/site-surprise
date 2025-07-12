@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  font-family: 'Quicksand', 'Segoe UI', Arial, sans-serif;
   background: linear-gradient(120deg, #f8fafc 0%, #e0c3fc 100%);
   min-height: 100vh;
   overflow-x: hidden;
@@ -14,12 +14,13 @@ body {
 .app-container {
   max-width: 600px;
   margin: 32px auto;
-  background: rgba(255,255,255,0.95);
-  border-radius: 18px;
-  box-shadow: 0 8px 40px #a78bfa55, 0 1.5px 0 #fff inset;
+  background: rgba(255,255,255,0.82);
+  border-radius: 28px;
+  box-shadow: 0 8px 40px #a78bfa33, 0 1.5px 0 #fff6 inset;
   padding: 24px;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(8px) saturate(1.2);
   animation: fadeIn 1.2s cubic-bezier(.36,.07,.19,.97);
+  transition: box-shadow 0.3s, background 0.3s;
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(40px);}
@@ -30,36 +31,39 @@ nav {
   gap: 24px;
   justify-content: center;
   margin-bottom: 32px;
-  background: rgba(167,139,250,0.08);
-  border-radius: 12px;
+  background: rgba(167,139,250,0.13);
+  border-radius: 18px;
   padding: 8px 0;
-  box-shadow: 0 2px 8px #a78bfa22;
+  box-shadow: 0 2px 12px #a78bfa18;
 }
 nav a {
   color: #7c3aed;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.2s, background 0.2s, transform 0.15s;
-  padding: 6px 18px;
-  border-radius: 8px;
+  transition: color 0.22s, background 0.22s, transform 0.18s, box-shadow 0.22s;
+  padding: 8px 22px;
+  border-radius: 12px;
+  font-size: 1.08em;
+  letter-spacing: 0.5px;
 }
 nav a:hover, nav a.active {
-  color: #fff;
-  background: #a78bfa;
+  color: #7c3aed;
+  background: linear-gradient(90deg, #a78bfa 60%, #f3e8ff 100%);
   transform: scale(1.08) rotate(-2deg);
-  box-shadow: 0 2px 8px #a78bfa44;
+  box-shadow: 0 4px 18px #a78bfa44;
 }
 h1, h2 {
-  font-family: 'Pacifico', cursive, sans-serif;
+  font-family: 'Quicksand', 'Segoe UI', Arial, sans-serif;
   color: #7c3aed;
-  text-shadow: 0 2px 8px #a78bfa33;
+  text-shadow: 0 2px 12px #a78bfa22;
   letter-spacing: 1.5px;
+  font-weight: 700;
 }
 ::-webkit-scrollbar {
   width: 8px;
   background: #f3e8ff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #a78bfa55;
-  border-radius: 8px;
+  background: #a78bfa33;
+  border-radius: 12px;
 }
