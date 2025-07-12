@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Wheel.css';
 
@@ -42,6 +42,12 @@ function launchConfetti() {
   }
 }
 
+function playSound(url: string) {
+  const audio = new Audio(url);
+  audio.volume = 0.25;
+  audio.play();
+}
+
 export default function Wheel() {
   const [canSpin, setCanSpin] = useState(true);
   const [countdown, setCountdown] = useState(0);
@@ -49,6 +55,9 @@ export default function Wheel() {
   const [result, setResult] = useState<string | null>(null);
   const [reveal, setReveal] = useState(false);
   const [allFound, setAllFound] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const spinSound = '/spin.mp3'; // Place these files in public/
+  const revealSound = '/reveal.mp3';
 
   useEffect(() => {
     const lastSpin = localStorage.getItem('lastSpin');
@@ -87,6 +96,7 @@ export default function Wheel() {
     setSpinning(true);
     setResult(null);
     setReveal(false);
+    playSound(spinSound);
     setTimeout(() => {
       // On récupère les indices stockés sous forme d'objets { clue, note }
       const discovered = JSON.parse(localStorage.getItem('clues') || '[]');
@@ -100,6 +110,7 @@ export default function Wheel() {
       }
       const clue = undiscovered[Math.floor(Math.random() * undiscovered.length)];
       setResult(clue);
+      playSound(revealSound);
       // Ajoute l'indice avec une note vide
       localStorage.setItem('clues', JSON.stringify([...discovered, { clue, note: "" }]));
       const next = getNextSpinTime();
@@ -125,8 +136,26 @@ export default function Wheel() {
   return (
     <div className="wheel-page">
       <h2>Tourne la roue bolosse !</h2>
-      <div className={`wheel ${spinning ? 'spinning' : ''} ${!canSpin || allFound ? 'disabled' : ''}`} onClick={spinWheel}>
+      <div
+        className={`wheel ${spinning ? 'spinning' : ''} ${!canSpin || allFound ? 'disabled' : ''}`}
+        onClick={spinWheel}
+        onMouseEnter={() => { if (!canSpin || allFound) setShowTooltip(true); }}
+        onMouseLeave={() => setShowTooltip(false)}
+        tabIndex={0}
+        aria-disabled={!canSpin || allFound}
+        style={{ position: 'relative' }}
+      >
         <span role="img" aria-label="wheel" style={{ fontSize: '4rem', transition: 'transform 0.2s' }}>🎡</span>
+        {spinning && (
+          <div className="wheel-spinner">
+            <div className="spinner"></div>
+          </div>
+        )}
+        {showTooltip && (
+          <div className="wheel-tooltip">
+            {allFound ? "Tous les indices sont découverts !" : "Tu dois attendre demain pour rejouer."}
+          </div>
+        )}
       </div>
       {!canSpin && !allFound && (
         <div className="countdown">
@@ -135,7 +164,8 @@ export default function Wheel() {
       )}
       {result && (
         <div className={`result ${reveal ? 'reveal' : ''}`}>
-          <strong>Indice du jour :</strong> {result}
+          <strong>Indice du jour :</strong>
+          <span className="clue-reveal">{result}</span>
         </div>
       )}
       {allFound && (

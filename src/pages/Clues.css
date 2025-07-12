@@ -1,7 +1,6 @@
 .clues-page {
   padding: 32px 0;
   text-align: center;
-  animation: fadeInUp 1.2s cubic-bezier(.36,.07,.19,.97);
   border-radius: 22px;
   background: rgba(255,255,255,0.82);
   box-shadow: 0 8px 32px #a78bfa22;
@@ -9,6 +8,9 @@
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(40px);}
   to { opacity: 1; transform: translateY(0);}
+}
+.clues-page.simple {
+  animation: none;
 }
 .clues-page ul {
   list-style: none;
@@ -26,14 +28,13 @@
   color: #5b21b6;
   font-weight: 500;
   box-shadow: 0 2px 12px #a78bfa18;
-  transition: background 0.22s, transform 0.18s, box-shadow 0.22s;
+  transition: none;
   cursor: pointer;
-  animation: popIn 0.7s cubic-bezier(.36,.07,.19,.97);
 }
 .clues-page li:hover {
   background: #a78bfaee;
   color: #fff;
-  transform: scale(1.04) rotate(-1deg);
+  transform: none;
   box-shadow: 0 4px 18px #a78bfa33;
 }
 @keyframes popIn {
@@ -55,7 +56,7 @@
   padding: 8px 18px;
   display: inline-block;
   box-shadow: 0 2px 12px #a78bfa18;
-  animation: fadeIn 1s;
+  animation: none;
 }
 @keyframes fadeIn {
   from { opacity: 0;}
@@ -69,12 +70,39 @@
   border-radius: 16px;
   padding: 18px;
   box-shadow: 0 2px 16px #a78bfa22;
-  animation: fadeIn 1.2s;
+  animation: none;
 }
 .clues-page li.highlight {
   background: #fffbe7;
   color: #a78bfa;
   box-shadow: 0 0 0 4px #f3e8ff, 0 4px 16px #a78bfa33;
+  animation: none;
+}
+.copy-btn {
+  background: linear-gradient(90deg, #a78bfa 60%, #f3e8ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 28px;
+  font-size: 1.08em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 12px #a78bfa22;
+  transition: background 0.22s, transform 0.18s;
+}
+.copy-btn:hover {
+  background: linear-gradient(90deg, #b794f4 60%, #a78bfa 100%);
+  transform: scale(1.06);
+}
+.note-placeholder {
+  color: #b794f4;
+  font-size: 0.95em;
+  font-style: italic;
+  margin-left: 6px;
+  opacity: 0.7;
+}
+.animated-highlight {
   animation: highlightPop 1.1s cubic-bezier(.36,.07,.19,.97);
 }
 @keyframes highlightPop {
