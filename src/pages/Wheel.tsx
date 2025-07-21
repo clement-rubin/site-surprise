@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Wheel.css';
 
-const CLUES = [
+const CLUES  = [
   "Un lieu où le temps semble suspendu...",
   "Des bulles pourraient accompagner la soirée...",
   "Un voyage sans prendre l'avion...",
@@ -18,6 +18,21 @@ const CLUES = [
   "Un lieu où les étoiles brillent plus fort...",
   "Un havre de paix pour deux amoureux...",
   "Un lieu magique, loin de l'agitation...",
+  "Tu peux préparer une petite valise… mais pas besoin de passeport.",
+  "On part en voiture, c’est à quelques heures d’ici.",
+  "Il n’y aura pas d’hôtel… mais un logement très original.",
+  "On dormira dans un endroit en bois… mais ce n’est pas une cabane.",
+  "C’est tout petit, tout mignon, et on y dort à deux.",
+  "Il y aura un spa rien que pour nous.",
+  "Prévois ton maillot de bain (oui, même s’il n’y a pas de mer).",
+  "On sera en pleine campagne, loin du bruit et des voisins.",
+  "On va se réveiller avec la nature autour de nous.",
+  "Il y aura des animaux pas loin, peut-être même qu’on pourra les approcher.",
+  "On pourra dîner ensemble dans un endroit tranquille, sans resto ni foule.",
+  "Pas d'écran, pas de téléphone… juste toi, moi, et le moment présent.",
+  "Le ciel y est magnifique la nuit, tu verras toutes les étoiles.",
+  "C’est un endroit où l’on peut se blottir et oublier le monde.",
+  "C’est une surprise pensée pour nous deux… un moment hors du temps.",
 ];
 
 function getNextSpinTime() {
